@@ -1,1 +1,185 @@
+def main ():
+    print ("Welcome to NIM Game!\n")
+    print ("In this game, there are some pieces in a table and every turn each player choose a number between")
+    print ("1 and a limit number and take that amount of pieces from the table.")
+    print ("The first player who takes the last pieces win.")
+    print ("The limit number and the number of pieces on the table are settled before the game starts.\n")
+    print ("Choose a game mode:\n")
+    print ("1 - To play one single match.")
+    print ("2 - To play a tournament.\n")
+    gameMode = 0
+    while (gameMode == 0):
+        gameMode = nat_not_0 ()
+        if (gameMode >= 1 and gameMode <= 2):
+            break
+        else:
+            print ("\nOops! That's not a valid command! Please try again.\n")
+            gameMode = 0
+        print("\n-----------------------------------------------\n")
+    if(gameMode == 1):
+        print ("You choose a single game!")
+        partida (whoStart)
+        print("\n-----------------------------------------------\n")
+    elif(gameMode == 2):
+        print ("You choose a tournament!")
+        campeonato(whoStarts)
+#----------------------------------------------------------------------------------------------------------------
+def single_match(whoStart):
+    print("How many pieces are on the table?")
+    tablePieces = nat_not_0 ()
+    print("What's the limit of pieces that could be taken off?")
+    limit = nat_not_0 ()
+    print("\n-----------------------------------------------\n")
+    #user starts
+    if(whoStart == 1):
+        print("You start!\n")
+        while (tablePieces != 0):
+            #user play
+            userPlay = user_choose_play (tablePieces, limit)
+            tablePieces = tablePieces - userPlay
+            if (userPlay == 1):
+                print ("You took one piece.")
+            else:
+                print ("You took", userPlay, "pieces.")
+            if (tablePieces == 0):    
+                print("End of the match! You win!")
+                return True
+                break
+            else:
+                if (tablePieces == 1):
+                    print ("Agora resta apenas uma peça no tabuleiro.\n")
+                else:
+                    print ("Agora resta apenas", tablePieces, "peças no tabuleiro.\n")
+                    
+            #computer play
+            computerPlay = computer_choose_play (tablePieces, limit)
+            tablePieces = tablePieces - computerPlay
+            if (computerPlay == 1):
+                print ("O computador tirou uma peça.")
+            else:
+                print ("O computador tirou", computerPlay, "peças.")
+            if (tablePieces == 0):    
+                print("Fim do jogo! O computador ganhou!")
+                return False
+                break
+            else:
+                if (tablePieces == 1):
+                    print ("Agora resta apenas uma peça no tabuleiro.\n")
+                else:
+                    print ("Agora resta apenas", tablePieces, "peças no tabuleiro.\n")
+                    
+         #computer starts
+    else:
+        print("Computador começa!\n")
+        while (tablePieces != 0):
+        #computer play
+            computerPlay = computador_escolhe_jogada (tablePieces, limit)
+            tablePieces = tablePieces - computerPlay
+            if (computerPlay == 1):
+                print ("O computador tirou uma peça.\n")
+            else:
+                print ("O computador tirou", computerPlay, "peças.\n")
+            if (tablePieces == 0):    
+                print("Fim do jogo! O computador ganhou!")
+                return False
+                break
+            else:
+                if (tablePieces == 1):
+                    print ("Agora resta apenas uma peça no tabuleiro.\n")
+                else:
+                    print ("Agora resta apenas", tablePieces, "peças no tabuleiro.\n")
+                    
+            #user play
+            userPlay = user_choose_play (tablePieces, limit)
+            tablePieces = tablePieces - userPlay
+            if (userPlay == 1):
+                print ("Você tirou uma peça.")
+            else:
+                print ("Voce tirou", userPlay, "peças.")
+            if (tablePieces == 0):    
+                print("Fim do jogo! Você ganhou!")
+                return True
+                break
+            else:
+                if (tablePieces == 1):
+                    print ("Agora resta apenas uma peça no tabuleiro.\n")
+                else:
+                    print ("Agora resta apenas", tablePieces, "peças no tabuleiro.\n")
+#---------------------------------------------------------------------------------------------------------------
+def tournament (x):
+    roundCounter = 1
+    userPoints = 0
+    computerPoints = 0
+    while (roundCounter <= 3):
+        print("\n-----------------------------------------------\n")
+        print ("**** Round",roundCounter, "****")
+        if (partida() == True):
+            userPoints += 1
+        else:
+            computerPoints += 1
+        roundCounter += 1
+    print("\n-----------------------------------------------\n")    
+    print ("**** End of tournament! ****")
+    print ("Placar: Player", userPoints, "X",computerPoints, "Computer")
+#--------------------------------------------------------------------------------------------------------------- 
+def user_choose_play (n, m):
+    controlVar = False
+    while(controlVar == False):
+        print("How many pieces do you want to take? ")
+        pecasRetiradas = nat_not_0 ()   
+        if (pecasRetiradas <= n and pecasRetiradas <= m):
+            controlVar = True
+            print("\n-----------------------------------------------\n")
+            return pecasRetiradas
+        else:
+            print("\n-----------------------------------------------\n")
+            print ("\nOops! That's not a valid command! Please try again.\n")
+#---------------------------------------------------------------------------------------------------------------
+def computer_choose_play (n, m):
+    piecesTaked = 1
+    while (piecesTaked < m and (n - piecesTaked) >= 0):
+        if (n - piecesTaked == 0):
+            break
+        elif ((n - piecesTaked) % (m +1) == 0):
+            break
+        else:
+            piecesTaked += 1
+    return piecesTaked
+#---------------------------------------------------------------------------------------------------------------
+def nat_not_0 ():
+    controlVar = False
+    while (controlVar == False):
+        try:
+            answer = int(input("Answer "))
+        except ValueError as ve:
+            print("\n-----------------------------------------------\n")
+            print ("Oops! That's not a valid command! Please try again.\n")
+            continue
+        if (type(answer) == int and answer > 0):
+            controlVar == True
+            return answer
+            break
+        else:
+            print("\n-----------------------------------------------\n")
+            print ("Oops! That's not a valid command! Please try again.\n")
+#--------------------------------------------------------------------------------------------------------------- 
+def who_starts (x):
+    controlVar = False
+    while (controlVar == False):
+        if (x <= 2):
+            print ("Who starts?")
+            print ("1 - Player")
+            print ("2 - Computer")
+            whoStart = nat_not_0 ()
+            if (whoStart <= 2):
+                return whoStart
+                controlVar = True
+                break
+            else:
+                print ("Oops! That's not a valid command! Please try again.")
+        else:
+            print ("Oops! That's not a valid command! Please try again.")
+        print("\n-----------------------------------------------\n")    
+#-------------------------------------------------------------------------------------------------------------- 
 
+main()
