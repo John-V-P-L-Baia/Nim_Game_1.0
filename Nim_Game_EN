@@ -25,7 +25,8 @@ def main ():
         print ("\nYou choose a tournament!\n")
         whoStart = who_start (gameMode)
         tournament (whoStart)
-#----------------------------------------------------------------------------------------------------------------
+    endMessage ()
+
 def print_user_play (userPlay,tablePieces):
     if (userPlay == 1):
         print ("You took one piece.")
@@ -40,7 +41,7 @@ def print_user_play (userPlay,tablePieces):
             print ("There is 1 piece on the table now.\n")
         else:
             print ("There is", tablePieces, "on the table now.\n")
-#----------------------------------------------------------------------------------------------------------------
+
 def print_computer_play (computerPlay,tablePieces):
     if (computerPlay == 1):
         print ("The computer took 1 piece.\n")
@@ -55,7 +56,7 @@ def print_computer_play (computerPlay,tablePieces):
             print ("There is 1 piece on the table now.\n")
         else:
             print ("There is", tablePieces, "on the table now.\n")
-#----------------------------------------------------------------------------------------------------------------
+
 def single_match(whoStart):
     tablePieces = 0
     while (tablePieces < 5):
@@ -89,7 +90,7 @@ def single_match(whoStart):
             userPlay = user_choose_play (tablePieces, limit)
             tablePieces = tablePieces - userPlay
             print_user_play (userPlay,tablePieces)
-#---------------------------------------------------------------------------------------------------------------
+
 def tournament (whoStart):
     roundCounter = 1
     userPoints = 0
@@ -104,7 +105,7 @@ def tournament (whoStart):
         whoStart += 1
     print ("**** End of tournament! ****")
     print ("Score: Player", userPoints, "X",computerPoints, "Computer")
-#--------------------------------------------------------------------------------------------------------------- 
+ 
 def user_choose_play (n, m):
     controlVar = False
     while(controlVar == False):
@@ -117,7 +118,7 @@ def user_choose_play (n, m):
         else:
             print("\n-----------------------------------------------\n")
             print ("Oops! That's not a valid command! Please try again.\n")
-#---------------------------------------------------------------------------------------------------------------
+
 def computer_choose_play (n, m):
     piecesTaked = 1
     while (piecesTaked < m and (n - piecesTaked) >= 0):
@@ -128,7 +129,7 @@ def computer_choose_play (n, m):
         else:
             piecesTaked += 1
     return piecesTaked
-#---------------------------------------------------------------------------------------------------------------
+
 def nat_not_0 ():
     controlVar = False
     while (controlVar == False):
@@ -145,7 +146,7 @@ def nat_not_0 ():
         else:
             print("\n-----------------------------------------------\n")
             print ("Oops! That's not a valid command! Please try again.\n")
-#--------------------------------------------------------------------------------------------------------------- 
+ 
 def who_start (gameMode):
     controlVar = False
     while (controlVar == False):
@@ -163,11 +164,15 @@ def who_start (gameMode):
         else:
             print ("Oops! That's not a valid command! Please try again.")
         print("\n-----------------------------------------------\n")
-#-------------------------------------------------------------------------------------------------------------- 
+ 
 def random_int_0_20 ():
     import random
     number = random.random()*10 + random.random()*10
     return number
-#-------------------------------------------------------------------------------------------------------------- 
+
+def endMessage ():
+    print("Thank you for playing! Any suggestions contact me on GitHub or e-mail: ")
+    print("https://github.com/John-V-P-L-Baia")
+    print("pellicoro7@gmail.com")
 
 main()
